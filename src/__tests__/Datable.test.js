@@ -78,8 +78,6 @@ describe("<App />", () => {
 
     expect(listItemElements).toHaveLength(2);
   });
-
-
 });
 
 describe('returns 1 item if user types "Luke"', () => {
@@ -113,5 +111,22 @@ describe('returns 1 item if user types "Luke"', () => {
     const trs = await screen.getAllByRole("row");
 
     expect(trs).toHaveLength(1);
+  });
+});
+
+describe("<Datatable/>", () => {
+  test("it takes the the mock data and returs 2 rows", () => {
+    const searchMock = jest.fn();
+    render(<Datatable data={mockData} />);
+
+    const nameProp = screen.getByText("Luke Skywalker");
+    expect(nameProp).toBeInTheDocument();
+  });
+
+  test("it should return only one '<tr></tr>' if no data is passed down", () => {
+    render(<Datatable data={[]} />);
+
+    const rows = screen.getAllByRole("row");
+    expect(rows).toHaveLength(1);
   });
 });
